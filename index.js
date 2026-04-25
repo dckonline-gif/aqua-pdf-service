@@ -28,7 +28,10 @@ app.post('/pdf', async (req, res) => {
   let page
   try {
     const browser = await getBrowser()
-    context = await browser.newContext()
+    context = await browser.newContext({
+      viewport: { width: 1440, height: 900 },
+      deviceScaleFactor: 1,
+    })
     if (cookie) await context.addCookies(cookie)
     page = await context.newPage()
     // domcontentloaded fires the moment the HTML is parsed; we don't need to
